@@ -1,0 +1,1 @@
+insert into specialties values ('1', 'Java') , ('2', 'SQL'), ('3', 'Python'), ('4', 'C++');

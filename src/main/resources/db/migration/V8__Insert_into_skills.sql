@@ -1,0 +1,1 @@
+insert into skills values ('1', 'drink coffee'), ('2', 'writing code'), ('3', 'sleeping');
