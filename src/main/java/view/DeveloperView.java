@@ -10,6 +10,7 @@ import model.Status;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class DeveloperView {
 
@@ -67,7 +68,7 @@ public class DeveloperView {
                     }
                 }
             }
-            return chosenSkills.values().stream().toList();
+            return chosenSkills.values().stream().collect(Collectors.toList());
         }
     }
 
