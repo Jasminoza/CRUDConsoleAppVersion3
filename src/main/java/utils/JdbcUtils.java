@@ -24,10 +24,10 @@ public class JdbcUtils {
     private static synchronized Connection getConnection() {
         if (connectionToPostgreSQL == null) {
             try {
-                String jdbcDriver = ConfigFactory.load().getString("db.jdbcDriver");
-                String databaseUrl = ConfigFactory.load().getString("db.url");
-                String user = ConfigFactory.load().getString("db.user");
-                String password = ConfigFactory.load().getString("db.password");
+                String jdbcDriver = getProperty("db.jdbcDriver");
+                String databaseUrl = getProperty("db.url");
+                String user = getProperty("db.user");
+                String password = getProperty("db.password");
                 Class.forName(jdbcDriver);
                 connectionToPostgreSQL = DriverManager.getConnection(databaseUrl, user, password);
             } catch (SQLException | ClassNotFoundException e) {
@@ -35,5 +35,9 @@ public class JdbcUtils {
             }
         }
         return connectionToPostgreSQL;
+    }
+
+    private static String getProperty(String parameter) {
+        return ConfigFactory.load().getString(parameter);
     }
 }
