@@ -1,13 +1,13 @@
 package controller;
 
 import model.Skill;
-import repository.jdbc.JDBCSkillRepositoryImpl;
+import repository.hibernate.HibernateSkillRepositoryImpl;
 import service.SkillService;
 
 import java.util.List;
 
 public class SkillController {
-    private final SkillService skillService = new SkillService(new JDBCSkillRepositoryImpl());
+    private final SkillService skillService = new SkillService(new HibernateSkillRepositoryImpl());
 
     public Skill createSkill(String name) {
         Skill skill = new Skill();

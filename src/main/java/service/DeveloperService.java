@@ -2,7 +2,7 @@ package service;
 
 import model.Developer;
 import repository.DeveloperRepository;
-import repository.jdbc.JDBCDeveloperRepositoryImpl;
+import repository.hibernate.HibernateDeveloperRepositoryImpl;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ public class DeveloperService {
     private final DeveloperRepository developerRepository;
 
     public DeveloperService() {
-        this.developerRepository = new JDBCDeveloperRepositoryImpl();
+        this.developerRepository = new HibernateDeveloperRepositoryImpl();
     }
 
     public DeveloperService(DeveloperRepository developerRepository) {

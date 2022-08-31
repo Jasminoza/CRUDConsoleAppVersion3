@@ -2,7 +2,7 @@ package service;
 
 import model.Skill;
 import repository.SkillRepository;
-import repository.jdbc.JDBCSkillRepositoryImpl;
+import repository.hibernate.HibernateSkillRepositoryImpl;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ public class SkillService {
     private final SkillRepository skillRepository;
 
     public SkillService() {
-        this.skillRepository = new JDBCSkillRepositoryImpl();
+        this.skillRepository = new HibernateSkillRepositoryImpl();
     }
 
     public SkillService(SkillRepository skillRepository){

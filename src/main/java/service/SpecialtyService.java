@@ -2,7 +2,7 @@ package service;
 
 import model.Specialty;
 import repository.SpecialtyRepository;
-import repository.jdbc.JDBCSpecialtyRepositoryImpl;
+import repository.hibernate.HibernateSpecialtyRepositoryImpl;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ public class SpecialtyService {
     private final SpecialtyRepository specialtyRepository;
 
     public SpecialtyService() {
-        this.specialtyRepository = new JDBCSpecialtyRepositoryImpl();
+        this.specialtyRepository = new HibernateSpecialtyRepositoryImpl();
     }
 
     public SpecialtyService(SpecialtyRepository specialtyRepository) {

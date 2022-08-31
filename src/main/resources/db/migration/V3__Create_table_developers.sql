@@ -3,9 +3,7 @@ create TABLE developers (
     firstName varchar(255) NOT NULL,
     lastName varchar(255) NOT NULL,
     specialty integer NOT NULL,
-    status integer NOT NULL,
+    status varchar(30) NOT NULL,
     CONSTRAINT developers_fk0
-    FOREIGN KEY (specialty) REFERENCES specialties(id),
-    CONSTRAINT developers_fk1
-    FOREIGN KEY (status) REFERENCES status(id)
+    FOREIGN KEY (specialty) REFERENCES specialties(id)
 );

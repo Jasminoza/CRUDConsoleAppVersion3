@@ -1,1 +1,0 @@
-insert into status values('1', 'ACTIVE'), ('2', 'DELETED');

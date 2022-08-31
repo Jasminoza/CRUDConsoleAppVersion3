@@ -1,8 +1,12 @@
 package model;
 
+import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
+
 import java.util.List;
 import java.util.Objects;
-
+@Entity
+@Table(name = "developers")
 public class Developer {
     private Long id;
     private String firstName;
@@ -30,7 +34,9 @@ public class Developer {
         this.skills = skills;
         this.specialty = specialty;
     }
-
+    @Id
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
     public Long getId() {
         return id;
     }
@@ -39,6 +45,7 @@ public class Developer {
         this.id = id;
     }
 
+    @Column(name = "firstname")
     public String getFirstName() {
         return firstName;
     }
@@ -46,7 +53,7 @@ public class Developer {
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-
+    @Column(name = "lastname")
     public String getLastName() {
         return lastName;
     }
@@ -55,9 +62,15 @@ public class Developer {
         this.lastName = lastName;
     }
 
+    @ManyToMany
     public List<Skill> getSkills() {
         return skills;
     }
+
+    public void setSkills(List<Skill> skills) {
+        this.skills = skills;
+    }
+
     public String showSkills(List<Skill> skillsList) {
         StringBuilder str = new StringBuilder();
         for (Skill skill : skillsList) {
@@ -67,10 +80,8 @@ public class Developer {
         return str.toString();
     }
 
-    public void setSkills(List<Skill> skills) {
-        this.skills = skills;
-    }
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "specialty")
     public Specialty getSpecialty() {
         return specialty;
     }
@@ -78,7 +89,8 @@ public class Developer {
     public void setSpecialty(Specialty specialty) {
         this.specialty = specialty;
     }
-
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
     public Status getStatus() {
         return status;
     }

@@ -4,14 +4,14 @@ import model.Developer;
 import model.Skill;
 import model.Specialty;
 import model.Status;
-import repository.jdbc.JDBCDeveloperRepositoryImpl;
+import repository.hibernate.HibernateDeveloperRepositoryImpl;
 import service.DeveloperService;
 
 import java.util.List;
 
 public class DeveloperController {
 
-    private final DeveloperService developerService = new DeveloperService(new JDBCDeveloperRepositoryImpl());
+    private final DeveloperService developerService = new DeveloperService(new HibernateDeveloperRepositoryImpl());
 
     public Developer createDeveloper(String firstName, String lastName, List<Skill> skills, Specialty specialty, Status status) {
         Developer developer = new Developer();
