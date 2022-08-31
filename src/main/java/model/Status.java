@@ -4,7 +4,10 @@ package model;
 public enum Status {
     ACTIVE(1),
     DELETED(2);
-    private final long id;
+    private long id;
+
+    Status() {
+    }
 
     Status(long id) {
         this.id = id;

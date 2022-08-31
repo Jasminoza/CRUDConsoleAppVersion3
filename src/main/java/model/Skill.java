@@ -7,12 +7,15 @@ public class Skill {
     private Long id;
     private String name;
 
-    public Skill(Long id, String name) {
-        this.id = id;
-        this.name = name;
+    public Skill() {
     }
 
     public Skill(String name) {
+        this.name = name;
+    }
+
+    public Skill(Long id, String name) {
+        this.id = id;
         this.name = name;
     }
 
@@ -27,9 +30,6 @@ public class Skill {
     @Override
     public int hashCode() {
         return Objects.hash(id, name);
-    }
-
-    public Skill() {
     }
 
 
