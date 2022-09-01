@@ -1,15 +1,12 @@
 package repository.hibernate;
 
 import model.Developer;
-import model.Skill;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.query.MutationQuery;
-import org.hibernate.query.Query;
 import repository.DeveloperRepository;
 import util.HibernateSessionFactoryUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class HibernateDeveloperRepositoryImpl implements DeveloperRepository {
@@ -18,13 +15,11 @@ public class HibernateDeveloperRepositoryImpl implements DeveloperRepository {
         try (Session session = getSession()) {
 
             List<Developer> developers = session.createQuery("From Developer", Developer.class).getResultList();
-            MutationQuery query = session.createNativeMutationQuery("Select * from developers_skills");
-            query.executeUpdate();
 
             for (Developer developer : developers) {
-                List<Skill> skills = new ArrayList<>();
-                developer.setSkills(skills);
+                Hibernate.initialize(developer.getSkills());
             }
+
             return developers;
         }
     }
