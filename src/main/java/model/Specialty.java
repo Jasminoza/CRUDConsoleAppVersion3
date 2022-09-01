@@ -6,9 +6,13 @@ import org.hibernate.annotations.GenericGenerator;
 import java.util.Objects;
 
 @Entity
+@Embeddable
 @Table(name = "specialties")
 public class Specialty {
+    @Id
+    @GeneratedValue(generator = "increment")
     private Long id;
+    @Column(name = "name")
     private String name;
 
     public Specialty() {
@@ -22,9 +26,7 @@ public class Specialty {
         this.id = id;
         this.name = name;
     }
-    @Id
-    @GeneratedValue(generator = "increment")
-    @GenericGenerator(name = "increment", strategy = "increment")
+
     public Long getId() {
         return id;
     }
@@ -33,7 +35,6 @@ public class Specialty {
         this.id = id;
     }
 
-    @Column(name = "name")
     public String getName() {
         return name;
     }

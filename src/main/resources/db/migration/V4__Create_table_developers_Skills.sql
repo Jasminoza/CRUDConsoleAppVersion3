@@ -1,6 +1,7 @@
 create TABLE developers_Skills (
     developer_ID int NOT NULL,
     skill_ID int NOT NULL,
+    PRIMARY KEY (developer_ID, skill_ID),
     CONSTRAINT developers_Skills_fk0
     FOREIGN KEY (developer_ID) REFERENCES developers(id),
     CONSTRAINT developers_Skills_fk1

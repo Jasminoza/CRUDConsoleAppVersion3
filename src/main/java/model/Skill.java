@@ -1,16 +1,29 @@
 package model;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "skills")
 public class Skill {
 
+    @Id
+    @GeneratedValue(generator = "increment")
     private Long id;
+    @Column(name = "name")
     private String name;
+
+    @ManyToMany(
+//            fetch = FetchType.EAGER,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+            mappedBy = "skills",
+            targetEntity = Developer.class
+    )
+    private List<Developer> developers = new ArrayList<>();
 
     public Skill() {
     }
@@ -24,9 +37,7 @@ public class Skill {
         this.name = name;
     }
 
-    @Id
-    @GeneratedValue(generator = "increment")
-    @GenericGenerator(name = "increment", strategy = "increment")
+
     public Long getId() {
         return id;
     }
@@ -35,13 +46,20 @@ public class Skill {
         this.id = id;
     }
 
-    @Column(name = "name")
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Developer> getDevelopers() {
+        return developers;
+    }
+
+    public void setDevelopers(List<Developer> developers) {
+        this.developers = developers;
     }
 
     @Override

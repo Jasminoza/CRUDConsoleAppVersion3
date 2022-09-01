@@ -1,20 +1,39 @@
 package model;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
 
 import java.util.List;
 import java.util.Objects;
 @Entity
 @Table(name = "developers")
 public class Developer {
+    @Id
+    @GeneratedValue(generator = "increment")
     private Long id;
+    @Column(name = "firstname", nullable = false)
     private String firstName;
+    @Column(name = "lastname", nullable = false)
     private String lastName;
+    @ManyToMany(
+//            fetch = FetchType.EAGER,
+            targetEntity = Skill.class,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE}
+    )
+    @JoinTable(
+            name = "developers_skills",
+            joinColumns = @JoinColumn(name = "developer_id"),
+            inverseJoinColumns = @JoinColumn(name = "skill_id")
+    )
     private List<Skill> skills;
+    @ManyToOne(
+//            fetch = FetchType.EAGER,
+            cascade = CascadeType.MERGE
+    )
+    @JoinColumn(name = "specialty", nullable = false)
     private Specialty specialty;
+    @Column(name = "status", nullable = false, length = 30)
+    @Enumerated(EnumType.STRING)
     private Status status;
-
     public Developer() {
     }
 
@@ -34,9 +53,7 @@ public class Developer {
         this.skills = skills;
         this.specialty = specialty;
     }
-    @Id
-    @GeneratedValue(generator = "increment")
-    @GenericGenerator(name = "increment", strategy = "increment")
+
     public Long getId() {
         return id;
     }
@@ -45,7 +62,6 @@ public class Developer {
         this.id = id;
     }
 
-    @Column(name = "firstname")
     public String getFirstName() {
         return firstName;
     }
@@ -53,7 +69,6 @@ public class Developer {
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-    @Column(name = "lastname")
     public String getLastName() {
         return lastName;
     }
@@ -62,7 +77,6 @@ public class Developer {
         this.lastName = lastName;
     }
 
-    @ManyToMany
     public List<Skill> getSkills() {
         return skills;
     }
@@ -80,8 +94,6 @@ public class Developer {
         return str.toString();
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "specialty")
     public Specialty getSpecialty() {
         return specialty;
     }
@@ -89,8 +101,7 @@ public class Developer {
     public void setSpecialty(Specialty specialty) {
         this.specialty = specialty;
     }
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status")
+
     public Status getStatus() {
         return status;
     }
