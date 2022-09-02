@@ -52,6 +52,7 @@ public class Developer {
         this.lastName = lastName;
         this.skills = skills;
         this.specialty = specialty;
+        this.status = Status.ACTIVE;
     }
 
     public Long getId() {

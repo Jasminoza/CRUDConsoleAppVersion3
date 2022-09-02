@@ -47,9 +47,9 @@ public class HibernateDeveloperRepositoryImpl implements DeveloperRepository {
     public Developer update(Developer developer) {
         try (Session session = getSession()) {
             Transaction transaction = session.beginTransaction();
-            session.merge(developer);
+            developer = session.merge(developer);
             transaction.commit();
-            return getById(developer.getId());
+            return session.get(Developer.class, developer.getId());
         }
     }
 
