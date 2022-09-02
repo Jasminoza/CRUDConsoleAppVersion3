@@ -3,6 +3,7 @@ package view;
 import controller.DeveloperController;
 import controller.SkillController;
 import controller.SpecialtyController;
+import model.Developer;
 import model.Skill;
 import model.Specialty;
 import model.Status;
@@ -31,7 +32,8 @@ public class DeveloperView {
         System.out.println("Enter id of specialty you want to add: ");
         Specialty specialty = chooseSpecialty();
         Status status = Status.ACTIVE;
-        developerController.createDeveloper(firstname, lastname, skills, specialty, status);
+        Developer createdDeveloper = developerController.createDeveloper(firstname, lastname, skills, specialty, status);
+        System.out.println("Developer was created successfully:\n" + createdDeveloper);
     }
 
     private List<Skill> addSkillsToList() {

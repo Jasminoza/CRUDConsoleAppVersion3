@@ -2,7 +2,6 @@ package model;
 
 import jakarta.persistence.*;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -74,4 +73,5 @@ public class Skill {
     public int hashCode() {
         return Objects.hash(id, name);
     }
+
 }

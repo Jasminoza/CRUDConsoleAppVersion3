@@ -4,6 +4,8 @@ import model.Developer;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.engine.spi.ActionQueue;
+import org.hibernate.internal.SessionImpl;
 import repository.DeveloperRepository;
 import util.HibernateSessionFactoryUtil;
 
@@ -28,9 +30,9 @@ public class HibernateDeveloperRepositoryImpl implements DeveloperRepository {
     public Developer create(Developer developer) {
         try (Session session = getSession()) {
             Transaction transaction = session.beginTransaction();
-            session.persist(developer);
+            developer = session.merge(developer);
             transaction.commit();
-            return getById(developer.getId());
+            return session.get(Developer.class, developer.getId());
         }
     }
 

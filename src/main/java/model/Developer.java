@@ -122,4 +122,16 @@ public class Developer {
     public int hashCode() {
         return Objects.hash(id, firstName, lastName, skills, specialty, status);
     }
+
+    @Override
+    public String toString() {
+        return "Developer {" +
+                "id = " + id +
+                "; firstName = '" + firstName + '\'' +
+                "; lastName = '" + lastName + '\'' +
+                "; skills = " + showSkills(skills) +
+                "specialty = " + specialty.getName() +
+                "; status = " + status +
+                '}';
+    }
 }
