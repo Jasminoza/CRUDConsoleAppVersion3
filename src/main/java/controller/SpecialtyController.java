@@ -7,7 +7,11 @@ import service.SpecialtyService;
 import java.util.List;
 
 public class SpecialtyController {
-    private final SpecialtyService specialtyService = new SpecialtyService(new HibernateSpecialtyRepositoryImpl());
+    private final SpecialtyService specialtyService;
+
+    public SpecialtyController() {
+        this.specialtyService = new SpecialtyService(new HibernateSpecialtyRepositoryImpl());
+    }
 
     public Specialty createSpecialty(String name) {
         Specialty specialty = new Specialty();

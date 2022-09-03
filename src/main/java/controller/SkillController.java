@@ -7,7 +7,11 @@ import service.SkillService;
 import java.util.List;
 
 public class SkillController {
-    private final SkillService skillService = new SkillService(new HibernateSkillRepositoryImpl());
+    private final SkillService skillService;
+
+    public SkillController() {
+        this.skillService = new SkillService(new HibernateSkillRepositoryImpl());
+    }
 
     public Skill createSkill(String name) {
         Skill skill = new Skill();

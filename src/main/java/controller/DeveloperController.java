@@ -11,7 +11,11 @@ import java.util.List;
 
 public class DeveloperController {
 
-    private final DeveloperService developerService = new DeveloperService(new HibernateDeveloperRepositoryImpl());
+    private final DeveloperService developerService;
+
+    public DeveloperController() {
+        this.developerService = new DeveloperService(new HibernateDeveloperRepositoryImpl());
+    }
 
     public Developer createDeveloper(String firstName, String lastName, List<Skill> skills, Specialty specialty, Status status) {
         Developer developer = new Developer();
