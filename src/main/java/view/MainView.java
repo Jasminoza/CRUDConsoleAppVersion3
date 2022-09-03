@@ -3,10 +3,17 @@ package view;
 import java.util.Scanner;
 
 public class MainView {
-    private final SkillView skillView = new SkillView();
-    private final SpecialtyView specialtyView = new SpecialtyView();
-    private final DeveloperView developerView = new DeveloperView();
-    private final Scanner sc = new Scanner(System.in);
+    private final SkillView skillView;
+    private final SpecialtyView specialtyView;
+    private final DeveloperView developerView;
+    private final Scanner sc;
+
+    public MainView() {
+        this.skillView = new SkillView();
+        this.specialtyView = new SpecialtyView();
+        this.developerView = new DeveloperView();
+        this.sc = new Scanner(System.in);
+    }
 
     public void mainMenu() {
 

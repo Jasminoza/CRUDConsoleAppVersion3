@@ -6,8 +6,13 @@ import model.Specialty;
 import java.util.Scanner;
 
 public class SpecialtyView {
-    private final SpecialtyController specialtyController = new SpecialtyController();
-    private final Scanner scanner = new Scanner(System.in);
+    private final SpecialtyController specialtyController;
+    private final Scanner scanner;
+
+    public SpecialtyView() {
+        this.specialtyController = new SpecialtyController();
+        this.scanner = new Scanner(System.in);
+    }
 
     public void showAllSpecialties() {
 

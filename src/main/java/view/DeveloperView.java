@@ -15,12 +15,21 @@ import java.util.stream.Collectors;
 
 public class DeveloperView {
 
-    private final DeveloperController developerController = new DeveloperController();
-    private final SkillController skillController = new SkillController();
-    private final SpecialtyController specialtyController = new SpecialtyController();
-    private final Scanner scanner = new Scanner(System.in);
-    private final SkillView skillView = new SkillView();
-    private final SpecialtyView specialtyView = new SpecialtyView();
+    private final DeveloperController developerController;
+    private final SkillController skillController;
+    private final SpecialtyController specialtyController;
+    private final Scanner scanner;
+    private final SkillView skillView;
+    private final SpecialtyView specialtyView;
+
+    public DeveloperView() {
+        this.developerController = new DeveloperController();
+        this.skillController= new SkillController();
+        this.specialtyController = new SpecialtyController();
+        this.scanner = new Scanner(System.in);
+        this.skillView = new SkillView();
+        this.specialtyView = new SpecialtyView();
+    }
 
     public void createDeveloper() {
         System.out.println("Enter developer's first name: ");

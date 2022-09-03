@@ -6,9 +6,13 @@ import model.Skill;
 import java.util.Scanner;
 
 public class SkillView {
-    private final Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner;
+    private final SkillController skillController;
 
-    private final SkillController skillController = new SkillController();
+    public SkillView() {
+        this.scanner = new Scanner(System.in);
+        this.skillController = new SkillController();
+    }
 
     public void createSkill() {
         boolean nameIsAlreadyExist = true;
