@@ -18,12 +18,7 @@ public class HibernateSkillRepositoryImpl implements SkillRepository {
 
     @Override
     public Skill create(Skill skill) {
-        try (Session session = getSession()) {
-            Transaction transaction = session.beginTransaction();
-            session.persist(skill);
-            transaction.commit();
-            return getById(skill.getId());
-        }
+        return saveSkillToDB(skill);
     }
 
     @Override
@@ -35,21 +30,39 @@ public class HibernateSkillRepositoryImpl implements SkillRepository {
 
     @Override
     public Skill update(Skill skill) {
-        try (Session session = getSession()) {
-            Transaction transaction = session.beginTransaction();
-            session.merge(skill);
-            transaction.commit();
-            return getById(skill.getId());
-        }
+        return saveSkillToDB(skill);
     }
 
     @Override
     public void delete(Long id) {
+
+        Transaction transaction = null;
+
         try (Session session = getSession()) {
-            Transaction transaction = session.beginTransaction();
+            transaction = session.beginTransaction();
             session.remove(getById(id));
             transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
         }
+    }
+
+    private Skill saveSkillToDB(Skill skill) {
+        Transaction transaction = null;
+
+        try (Session session = getSession()) {
+            transaction = session.beginTransaction();
+            skill = session.merge(skill);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        }
+
+        return ((skill.getId() != null) ? skill : null);
     }
 
     private Session getSession(){

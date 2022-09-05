@@ -18,12 +18,7 @@ public class HibernateSpecialtyRepositoryImpl implements SpecialtyRepository {
 
     @Override
     public Specialty create(Specialty specialty) {
-        try (Session session = getSession()) {
-            Transaction transaction = session.beginTransaction();
-            session.persist(specialty);
-            transaction.commit();
-            return getById(specialty.getId());
-        }
+        return saveSpecialtyToDB(specialty);
     }
 
     @Override
@@ -35,21 +30,39 @@ public class HibernateSpecialtyRepositoryImpl implements SpecialtyRepository {
 
     @Override
     public Specialty update(Specialty specialty) {
-        try (Session session = getSession()) {
-            Transaction transaction = session.beginTransaction();
-            session.merge(specialty);
-            transaction.commit();
-            return getById(specialty.getId());
-        }
+        return saveSpecialtyToDB(specialty);
     }
 
     @Override
     public void delete(Long id) {
+        Transaction transaction = null;
+
         try (Session session = getSession()) {
-            Transaction transaction = session.beginTransaction();
+            transaction = session.beginTransaction();
             session.remove(getById(id));
             transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
         }
+    }
+
+    private Specialty saveSpecialtyToDB(Specialty specialty) {
+        Transaction transaction = null;
+
+        try (Session session = getSession()) {
+            transaction = session.beginTransaction();
+            specialty = session.merge(specialty);
+            transaction.commit();
+            return getById(specialty.getId());
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        }
+
+        return ((specialty.getId() != null) ? specialty : null);
     }
 
     private Session getSession(){
