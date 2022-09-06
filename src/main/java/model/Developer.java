@@ -15,7 +15,6 @@ public class Developer {
     @Column(name = "lastname", nullable = false)
     private String lastName;
     @ManyToMany(
-//            fetch = FetchType.EAGER,
             targetEntity = Skill.class,
             cascade = {CascadeType.PERSIST, CascadeType.MERGE}
     )
@@ -26,7 +25,6 @@ public class Developer {
     )
     private List<Skill> skills;
     @ManyToOne(
-//            fetch = FetchType.EAGER,
             cascade = CascadeType.MERGE
     )
     @JoinColumn(name = "specialty", nullable = false)

@@ -13,14 +13,7 @@ public class HibernateDeveloperRepositoryImpl implements DeveloperRepository {
     @Override
     public List<Developer> getAll() {
         try (Session session = getSession()) {
-
-            List<Developer> developers = session.createQuery("From Developer", Developer.class).getResultList();
-
-            for (Developer developer : developers) {
-                Hibernate.initialize(developer.getSkills());
-            }
-
-            return developers;
+            return session.createQuery("select d from Developer d join fetch d.skills",Developer.class).getResultList();
         }
     }
 

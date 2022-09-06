@@ -17,7 +17,6 @@ public class Skill {
     private String name;
 
     @ManyToMany(
-//            fetch = FetchType.EAGER,
             cascade = {CascadeType.PERSIST, CascadeType.MERGE},
             mappedBy = "skills",
             targetEntity = Developer.class
