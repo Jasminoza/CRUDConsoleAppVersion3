@@ -8,6 +8,7 @@ import model.Skill;
 import model.Specialty;
 import model.Status;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
@@ -46,7 +47,8 @@ public class DeveloperView {
     }
 
     private List<Skill> addSkillsToList() {
-        if (skillController.getAllSkills() == null && skillController.getAllSkills().size() == 0) {
+        List<Skill> skills = skillController.getAllSkills();
+        if (skills == null || skills.size() == 0) {
             System.out.println("Please, add some skills to skills list first, its empty.");
             return null;
         } else {
@@ -79,7 +81,7 @@ public class DeveloperView {
                     }
                 }
             }
-            return chosenSkills.values().stream().collect(Collectors.toList());
+            return new ArrayList<>(chosenSkills.values());
         }
     }
 
@@ -87,7 +89,9 @@ public class DeveloperView {
         boolean idIsCorrect = false;
         Long id;
 
-        if (specialtyController.getAllSpecialties() == null && specialtyController.getAllSpecialties().size() == 0) {
+        List<Specialty> specialties = specialtyController.getAllSpecialties();
+
+        if (specialties == null || specialties.size() == 0) {
             System.out.println("Please, add some skills to skills list first, its empty.");
         } else {
             specialtyView.showAllSpecialties();
@@ -96,7 +100,7 @@ public class DeveloperView {
                 try {
                     id = Long.parseLong(scanner.nextLine());
                     final Long finalId = id;
-                    if (specialtyController.getAllSpecialties().stream().anyMatch(s -> s.getId().equals(finalId))) {
+                    if (specialties.stream().anyMatch(s -> s.getId().equals(finalId))) {
                         idIsCorrect = true;
                         return specialtyController.getById(id);
                     } else {
@@ -111,11 +115,13 @@ public class DeveloperView {
     }
 
     public void showAllDevelopers() {
-        if (developerController.getAllDevelopers() == null && developerController.getAllDevelopers().size() == 0) {
+        List<Developer> developers = developerController.getAllDevelopers();
+
+        if (developers == null || developers.size() == 0) {
             System.out.println("Developers list is empty.");
         } else {
             System.out.println("Developers:\n=============================================================================================");
-            developerController.getAllDevelopers()
+            developers
                     .forEach(dev -> System.out.println("id: " + dev.getId() + ", first name: " + dev.getFirstName()
                             + ", last name: " + dev.getLastName() + ", skills: " + dev.showSkills(dev.getSkills())
                             + "specialty: " + dev.getSpecialty().getName() + ", status: " + dev.getStatus().toString()));
@@ -126,7 +132,10 @@ public class DeveloperView {
     public void deleteDeveloper() {
         boolean idIsCorrect = false;
         Long id;
-        if (developerController.getAllDevelopers() == null && developerController.getAllDevelopers().size() == 0) {
+
+        List<Developer> developers = developerController.getAllDevelopers();
+
+        if (developers == null || developers.size() == 0) {
             System.out.println("Developers list is empty.");
         } else {
             System.out.println("Enter id number to delete developer from the list: ");
@@ -134,7 +143,7 @@ public class DeveloperView {
                 try {
                     id = Long.parseLong(scanner.nextLine());
                     final Long finalId = id;
-                    if (developerController.getAllDevelopers().stream().anyMatch(s -> s.getId().equals(finalId))) {
+                    if (developers.stream().anyMatch(s -> s.getId().equals(finalId))) {
                         idIsCorrect = true;
                         developerController.deleteDeveloper(id);
                     } else {
@@ -148,7 +157,9 @@ public class DeveloperView {
     }
 
     public void updateDeveloper() {
-        if (developerController.getAllDevelopers() == null && developerController.getAllDevelopers().size() == 0) {
+        List<Developer> developers = developerController.getAllDevelopers();
+
+        if (developers == null || developers.size() == 0) {
             System.out.println("Developers list is empty.");
         } else {
             showAllDevelopers();
@@ -188,8 +199,9 @@ public class DeveloperView {
         boolean idIsCorrect = false;
         Long id;
 
-        if (developerController.getAllDevelopers() == null &&
-                developerController.getAllDevelopers().size() == 0) {
+        List<Developer> developers = developerController.getAllDevelopers();
+
+        if (developers == null || developers.size() == 0) {
             System.out.println("Developers list is empty.");
         } else {
             showAllDevelopers();
@@ -198,9 +210,9 @@ public class DeveloperView {
                 try {
                     id = Long.parseLong(scanner.nextLine());
                     final Long finalId = id;
-                    if (developerController.getAllDevelopers().stream().anyMatch(s -> s.getId().equals(finalId))) {
+                    if (developers.stream().anyMatch(s -> s.getId().equals(finalId))) {
                         idIsCorrect = true;
-                        developerController.getAllDevelopers().stream().filter(s -> s.getId().equals(finalId))
+                        developers.stream().filter(s -> s.getId().equals(finalId))
                                 .forEach(dev -> System.out.println("id: " + dev.getId() + ", first name: " + dev.getFirstName()
                                         + ", last name: " + dev.getLastName() + ", skills: " + dev.showSkills(dev.getSkills())
                                         + "specialty: " + dev.getSpecialty().getName() + ", status: " + dev.getStatus().toString()));

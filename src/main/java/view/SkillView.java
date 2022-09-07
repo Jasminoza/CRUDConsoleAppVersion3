@@ -3,6 +3,7 @@ package view;
 import controller.SkillController;
 import model.Skill;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class SkillView {
@@ -18,7 +19,9 @@ public class SkillView {
         boolean nameIsAlreadyExist = true;
         String name;
 
-        if (skillController.getAllSkills() == null && skillController.getAllSkills().size() == 0) {
+        List<Skill> skills = skillController.getAllSkills();
+
+        if (skills == null || skills.size() == 0) {
             System.out.println("Skill list is empty.");
         } else {
             System.out.println("Enter skill name: ");
@@ -26,7 +29,7 @@ public class SkillView {
             while (nameIsAlreadyExist) {
                 name = scanner.nextLine();
                 final String finalName = name;
-                if (skillController.getAllSkills().stream().anyMatch(s -> s.getName().equals(finalName))) {
+                if (skills.stream().anyMatch(s -> s.getName().equals(finalName))) {
                     System.out.println("Skill with such name is already exist. Please, enter another skill name.");
                 } else {
                     nameIsAlreadyExist = false;
@@ -39,13 +42,13 @@ public class SkillView {
     }
 
     public void showAllSkills() {
+        List<Skill> skills = skillController.getAllSkills();
 
-        if (skillController.getAllSkills() == null && skillController.getAllSkills().size() == 0) {
+        if (skills == null || skills.size() == 0) {
             System.out.println("Skill list is empty.");
         } else {
             System.out.println("Skills:\n===============================");
-            skillController.getAllSkills().
-                    forEach(a -> System.out.println(" id: " + a.getId() + ", name: " + a.getName() + ";"));
+            skills.forEach(a -> System.out.println(" id: " + a.getId() + ", name: " + a.getName() + ";"));
             System.out.println("===============================");
         }
 
@@ -54,7 +57,10 @@ public class SkillView {
     public void deleteSkill() {
         boolean idIsCorrect = false;
         Long id;
-        if (skillController.getAllSkills() == null && skillController.getAllSkills().size() == 0) {
+
+        List<Skill> skills = skillController.getAllSkills();
+
+        if (skills == null || skills.size() == 0) {
             System.out.println("Skill list is empty.");
         } else {
             System.out.println("Enter id number to delete skill from the list: ");
@@ -63,7 +69,7 @@ public class SkillView {
                 try {
                     id = Long.parseLong(scanner.nextLine());
                     final Long finalId = id;
-                    if (skillController.getAllSkills().stream().anyMatch(s -> s.getId().equals(finalId))) {
+                    if (skills.stream().anyMatch(s -> s.getId().equals(finalId))) {
                         idIsCorrect = true;
                         skillController.deleteSkill(id);
                     } else {
@@ -80,7 +86,9 @@ public class SkillView {
         boolean idIsCorrect = false;
         Long id;
 
-        if (skillController.getAllSkills() == null && skillController.getAllSkills().size() == 0) {
+        List<Skill> skills = skillController.getAllSkills();
+
+        if (skills == null || skills.size() == 0) {
             System.out.println("Skill list is empty.");
         } else {
             showAllSkills();
@@ -90,7 +98,7 @@ public class SkillView {
                 try {
                     id = Long.parseLong(scanner.nextLine());
                     final Long finalId = id;
-                    if (skillController.getAllSkills().stream().anyMatch(s -> s.getId().equals(finalId))) {
+                    if (skills.stream().anyMatch(s -> s.getId().equals(finalId))) {
                         idIsCorrect = true;
                         System.out.println("Please, enter new name: ");
                         String name = scanner.nextLine();
@@ -108,8 +116,9 @@ public class SkillView {
     public void getById() {
         boolean idIsCorrect = false;
         Long id;
+        List<Skill> skills = skillController.getAllSkills();
 
-        if (skillController.getAllSkills().size() == 0 && skillController.getAllSkills() == null) {
+        if (skills == null || skills.size() == 0) {
             System.out.println("Skill list is empty.");
         } else {
             showAllSkills();
@@ -119,7 +128,7 @@ public class SkillView {
                 try {
                     id = Long.parseLong(scanner.nextLine());
                     final Long finalId = id;
-                    if (skillController.getAllSkills().stream().anyMatch(s -> s.getId().equals(finalId))) {
+                    if (skills.stream().anyMatch(s -> s.getId().equals(finalId))) {
                         idIsCorrect = true;
                         System.out.println("id: " + skillController.getById(id).getId() +
                                 ", name: " + skillController.getById(id).getName() + ".");
@@ -132,5 +141,4 @@ public class SkillView {
             }
         }
     }
-
 }

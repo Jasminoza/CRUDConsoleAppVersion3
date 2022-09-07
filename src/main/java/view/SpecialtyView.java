@@ -3,6 +3,7 @@ package view;
 import controller.SpecialtyController;
 import model.Specialty;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class SpecialtyView {
@@ -16,13 +17,14 @@ public class SpecialtyView {
 
     public void showAllSpecialties() {
 
-        if (specialtyController.getAllSpecialties() != null && specialtyController.getAllSpecialties().size() != 0) {
-            System.out.println("Specialties:\n===============================");
-            specialtyController.getAllSpecialties()
-                    .forEach(s -> System.out.println("id: " + s.getId() + ", name: " + s.getName()));
-            System.out.println("===============================");
-        } else {
+        List<Specialty> specialties = specialtyController.getAllSpecialties();
+
+        if (specialties == null || specialties.size() == 0) {
             System.out.println("Specialties list is empty.");
+        } else {
+            System.out.println("Specialties:\n===============================");
+            specialties.forEach(s -> System.out.println("id: " + s.getId() + ", name: " + s.getName()));
+            System.out.println("===============================");
         }
     }
 
@@ -38,14 +40,18 @@ public class SpecialtyView {
         boolean idIsCorrect = false;
         Long id;
 
-        if (specialtyController.getAllSpecialties() != null && specialtyController.getAllSpecialties().size() != 0) {
+        List<Specialty> specialties = specialtyController.getAllSpecialties();
+
+        if (specialties == null || specialties.size() == 0) {
+            System.out.println("Specialties list is empty.");
+        } else {
             System.out.println("Enter id number to delete specialty from the list: ");
 
             while (!idIsCorrect) {
                 try {
                     id = Long.parseLong(scanner.nextLine());
                     final Long finalId = id;
-                    if (specialtyController.getAllSpecialties().stream().anyMatch(s -> s.getId().equals(finalId))) {
+                    if (specialties.stream().anyMatch(s -> s.getId().equals(finalId))) {
                         idIsCorrect = true;
                         specialtyController.deleteSpecialty(id);
                     } else {
@@ -55,8 +61,6 @@ public class SpecialtyView {
                     System.out.println("Please, enter correct id.");
                 }
             }
-        } else {
-            System.out.println("Specialties list is empty.");
         }
     }
 
@@ -64,7 +68,11 @@ public class SpecialtyView {
         boolean idIsCorrect = false;
         Long id;
 
-        if (specialtyController.getAllSpecialties() != null && specialtyController.getAllSpecialties().size() != 0) {
+        List<Specialty> specialties = specialtyController.getAllSpecialties();
+
+        if (specialties == null || specialties.size() == 0) {
+            System.out.println("Specialties list is empty.");
+        } else {
             showAllSpecialties();
             System.out.println("Please, enter id number of specialty you want to update: ");
 
@@ -72,7 +80,7 @@ public class SpecialtyView {
                 try {
                     id = Long.parseLong(scanner.nextLine());
                     final Long finalId = id;
-                    if (specialtyController.getAllSpecialties().stream().anyMatch(s -> s.getId().equals(finalId))) {
+                    if (specialties.stream().anyMatch(s -> s.getId().equals(finalId))) {
                         idIsCorrect = true;
                         System.out.println("Please, enter new name: ");
                         String name = scanner.nextLine();
@@ -84,8 +92,6 @@ public class SpecialtyView {
                     System.out.println("Please, enter correct id.");
                 }
             }
-        } else {
-            System.out.println("Specialties list is empty.");
         }
     }
 
@@ -93,8 +99,11 @@ public class SpecialtyView {
         boolean idIsCorrect = false;
         Long id;
 
-        if (specialtyController.getAllSpecialties() != null && specialtyController.getAllSpecialties().size() != 0) {
+        List<Specialty> specialties = specialtyController.getAllSpecialties();
 
+        if (specialties == null || specialties.size() == 0) {
+            System.out.println("Specialties list is empty.");
+        } else {
             showAllSpecialties();
             System.out.println("Please, enter number of specialty you want to see: ");
 
@@ -102,7 +111,7 @@ public class SpecialtyView {
                 try {
                     id = Long.parseLong(scanner.nextLine());
                     final Long finalId = id;
-                    if (specialtyController.getAllSpecialties().stream().anyMatch(s -> s.getId().equals(finalId))) {
+                    if (specialties.stream().anyMatch(s -> s.getId().equals(finalId))) {
                         idIsCorrect = true;
                         System.out.println("id: " + specialtyController.getById(id).getId() + ", name: " + specialtyController.getById(id).getName() + ".");
                     } else {
@@ -112,8 +121,6 @@ public class SpecialtyView {
                     System.out.println("Please, enter correct id.");
                 }
             }
-        } else {
-            System.out.println("Specialties list is empty.");
         }
     }
 
