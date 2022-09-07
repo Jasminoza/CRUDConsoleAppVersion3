@@ -17,7 +17,7 @@ public class Skill {
     private String name;
 
     @ManyToMany(
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+            cascade = {CascadeType.ALL},
             mappedBy = "skills",
             targetEntity = Developer.class
     )

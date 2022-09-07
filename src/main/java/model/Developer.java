@@ -16,7 +16,8 @@ public class Developer {
     private String lastName;
     @ManyToMany(
             targetEntity = Skill.class,
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE}
+            cascade = {CascadeType.ALL},
+            fetch = FetchType.LAZY
     )
     @JoinTable(
             name = "developers_skills",
@@ -25,7 +26,7 @@ public class Developer {
     )
     private List<Skill> skills;
     @ManyToOne(
-            cascade = CascadeType.MERGE
+            cascade = {CascadeType.ALL}
     )
     @JoinColumn(name = "specialty", nullable = false)
     private Specialty specialty;
