@@ -8,10 +8,7 @@ import model.Skill;
 import model.Specialty;
 import model.Status;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class DeveloperView {
@@ -53,7 +50,7 @@ public class DeveloperView {
             return null;
         } else {
             boolean choiceIsOver = false;
-            HashMap<Long, Skill> chosenSkills = new HashMap<>();
+            Map<Long, Skill> chosenSkills = new HashMap<>();
             skillView.showAllSkills();
 
             while (!choiceIsOver) {
@@ -226,5 +223,3 @@ public class DeveloperView {
         }
     }
 }
-
-
