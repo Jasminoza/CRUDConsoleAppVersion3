@@ -10,7 +10,7 @@ public class SkillController {
     private final SkillService skillService;
 
     public SkillController() {
-        this.skillService = new SkillService(new HibernateSkillRepositoryImpl());
+        this.skillService = new SkillService();
     }
 
     public Skill createSkill(String name) {

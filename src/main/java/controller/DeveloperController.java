@@ -14,7 +14,7 @@ public class DeveloperController {
     private final DeveloperService developerService;
 
     public DeveloperController() {
-        this.developerService = new DeveloperService(new HibernateDeveloperRepositoryImpl());
+        this.developerService = new DeveloperService();
     }
 
     public Developer createDeveloper(String firstName, String lastName, List<Skill> skills, Specialty specialty, Status status) {

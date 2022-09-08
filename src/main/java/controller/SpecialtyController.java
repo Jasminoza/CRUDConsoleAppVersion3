@@ -10,7 +10,7 @@ public class SpecialtyController {
     private final SpecialtyService specialtyService;
 
     public SpecialtyController() {
-        this.specialtyService = new SpecialtyService(new HibernateSpecialtyRepositoryImpl());
+        this.specialtyService = new SpecialtyService();
     }
 
     public Specialty createSpecialty(String name) {
